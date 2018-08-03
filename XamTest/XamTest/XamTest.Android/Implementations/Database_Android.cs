@@ -8,9 +8,16 @@ namespace XamTest.Droid.Implementations
 {
     public class Database_Android : IDatabase
     {
+        private const string dbName = "FCA.db3";
+
+        public SQLiteAsyncConnection DbAsyncConnection()
+        {
+            var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), dbName);
+            return new SQLiteAsyncConnection(path);
+        }
+
         public SQLiteConnection DbConnection()
         {
-            var dbName = "FCA.db3";
             var path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), dbName);
             return new SQLiteConnection(path);
         }

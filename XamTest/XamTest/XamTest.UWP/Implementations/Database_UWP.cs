@@ -10,9 +10,16 @@ namespace XamTest.UWP.Implementations
 {
     public class Database_UWP : IDatabase
     {
+        private const string dbName = "FCA.db3";
+
+        public SQLiteAsyncConnection DbAsyncConnection()
+        {
+            var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, dbName);
+            return new SQLiteAsyncConnection(path);
+        }
+
         public SQLiteConnection DbConnection()
         {
-            var dbName = "CustomersDb.db3";
             var path = Path.Combine(ApplicationData.Current.LocalFolder.Path, dbName);
             return new SQLiteConnection(path);
         }

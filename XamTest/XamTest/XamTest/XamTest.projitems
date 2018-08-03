@@ -16,9 +16,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Database.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBCustomForm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBCustomFormQuestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomFormViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CustomFormListView.xaml.cs">
+      <DependentUpon>CustomFormListView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\CustomFormListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
