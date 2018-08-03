@@ -1,13 +1,18 @@
-using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamTest.Helpers;
+using XamTest.Shared;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace XamTest
 {
 	public partial class App : Application
 	{
+        public const int ANIMATION_SPEED = 250;
+        public static ISoapService soapService;
+        public static string Version { get; set; } = "Unknown Version";
+        public bool HadAuthenticationError { get; set; }
+
         private static Database _DB;
         public static Database DB
         {
@@ -22,6 +27,8 @@ namespace XamTest
 		public App ()
 		{
 			InitializeComponent();
+
+            DB.CreateTables();
 
 			MainPage = new NavigationPage(new MainPage());
 		}

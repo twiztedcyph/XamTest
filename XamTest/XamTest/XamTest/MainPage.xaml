@@ -15,11 +15,8 @@
         <Label x:Name="lblPICSVersion" Text="Version" VerticalOptions="End"></Label>
     </StackLayout>
 
-
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Sync" Order="Primary" x:Name="btnSync" Clicked="btnSync_Clicked"  Icon="sync.png"></ToolbarItem>
         <ToolbarItem Text="Help" Order="Primary" x:Name="btnHelp" Clicked="btnHelp_Clicked"  Icon="help.png"></ToolbarItem>
     </ContentPage.ToolbarItems>
-
 </ContentPage>

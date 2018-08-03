@@ -5,6 +5,6 @@ namespace XamTest.ViewModels
 {
     public class CustomFormViewModel
     {
-        public static ObservableCollection<DBCustomForm> GetForms { get; set; }
+        public static ObservableCollection<DBCustomForm> GetForms { get; set; } = new ObservableCollection<DBCustomForm>(App.DB.GetAllForms());
     }
 }

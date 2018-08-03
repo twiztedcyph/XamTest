@@ -1,7 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.IO;
-using XamTest.Interfaces;
+using XamTest.Shared;
 using XamTest.iOS.Implementations;
 
 [assembly: Xamarin.Forms.Dependency(typeof(Database_iOS))]

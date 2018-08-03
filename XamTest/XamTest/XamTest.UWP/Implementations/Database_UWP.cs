@@ -2,7 +2,7 @@
 using SQLite;
 using Windows.Storage;
 using Xamarin.Forms;
-using XamTest.Interfaces;
+using XamTest.Shared;
 using XamTest.UWP.Implementations;
 
 [assembly: Dependency(typeof(Database_UWP))]

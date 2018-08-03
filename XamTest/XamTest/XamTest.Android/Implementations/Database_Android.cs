@@ -1,7 +1,7 @@
 ﻿using SQLite;
 using System.IO;
 using XamTest.Droid.Implementations;
-using XamTest.Interfaces;
+using XamTest.Shared;
 
 [assembly: Xamarin.Forms.Dependency(typeof(Database_Android))]
 namespace XamTest.Droid.Implementations

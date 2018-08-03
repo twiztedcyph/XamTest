@@ -13,11 +13,6 @@ namespace XamTest.Views
 			InitializeComponent ();
 		}
 
-        public static ObservableCollection<DBCustomForm> GetList()
-        {
-            return new ObservableCollection<DBCustomForm>(App.DB.GetAllForms());
-        }
-
         private void LvCustomForms_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
 

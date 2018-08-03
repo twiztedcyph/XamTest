@@ -14,7 +14,7 @@ namespace XamTest.Models
             get { return _FormID; }
             set
             {
-                if (!_FormID.Equals(value))
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
                 {
                     _FormID = value;
                     OnPropertyChanged(nameof(FormID));
@@ -28,7 +28,7 @@ namespace XamTest.Models
             get { return _Title; }
             set
             {
-                if (!_Title.Equals(value))
+                if (string.IsNullOrWhiteSpace(_Title) || !_Title.Equals(value))
                 {
                     _Title = value;
                     OnPropertyChanged(nameof(Title));
@@ -42,7 +42,7 @@ namespace XamTest.Models
             get { return _Description; }
             set
             {
-                if (!_Description.Equals(value))
+                if (string.IsNullOrWhiteSpace(_Description) || !_Description.Equals(value))
                 {
                     _Description = value;
                     OnPropertyChanged(nameof(Description));
@@ -56,7 +56,7 @@ namespace XamTest.Models
             get { return _IsFor; }
             set
             {
-                if (!_IsFor.Equals(value))
+                if (string.IsNullOrWhiteSpace(_IsFor) || !_IsFor.Equals(value))
                 {
                     _IsFor = value;
                     OnPropertyChanged(nameof(IsFor));
@@ -70,7 +70,7 @@ namespace XamTest.Models
             get { return _Status; }
             set
             {
-                if (!_Status.Equals(value))
+                if (string.IsNullOrWhiteSpace(_Status) || !_Status.Equals(value))
                 {
                     _Status = value;
                     OnPropertyChanged(nameof(Status));
@@ -84,7 +84,7 @@ namespace XamTest.Models
             get { return _Type; }
             set
             {
-                if (!_Type.Equals(value))
+                if (string.IsNullOrWhiteSpace(_Type) || !_Type.Equals(value))
                 {
                     _Type = value;
                     OnPropertyChanged(nameof(Type));
@@ -98,7 +98,7 @@ namespace XamTest.Models
             get { return _TemplateFileID; }
             set
             {
-                if (!_TemplateFileID.Equals(value))
+                if (string.IsNullOrWhiteSpace(_TemplateFileID) || !_TemplateFileID.Equals(value))
                 {
                     _TemplateFileID = value;
                     OnPropertyChanged(nameof(TemplateFileID));

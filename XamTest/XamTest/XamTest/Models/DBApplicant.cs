@@ -1,5 +1,4 @@
 ﻿using System;
-using Pellcomp.Vs.Mobile.FormCaptureApp.lib;
 using SQLite;
 namespace XamTest.Models
 {

@@ -18,11 +18,27 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Database.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISoapService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBApplicant.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DBCustomForm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DBCustomFormQuestion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBFormField.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBFormInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBFormInstanceAttachment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBLearner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBOfficer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBOrganisation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBPickItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBQualPlan.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBQualPlanDet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBSite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserAccount.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ValidationResultList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\GenericResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\SoapService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomFormViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomFormListView.xaml.cs">
       <DependentUpon>CustomFormListView.xaml</DependentUpon>

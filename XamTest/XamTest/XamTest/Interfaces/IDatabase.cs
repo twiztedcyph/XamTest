@@ -1,4 +1,4 @@
-﻿namespace XamTest.Interfaces
+﻿namespace XamTest.Shared
 {
     public interface IDatabase
     {
