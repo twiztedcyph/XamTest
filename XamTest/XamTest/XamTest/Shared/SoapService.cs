@@ -1,22 +1,63 @@
-﻿#if __ANDROID__
-//using Pellcomp.Vs.Mobile.FormCaptureApp.Droid.PICSWS;
-#endif
-#if __IOS__
-//using Pellcomp.Vs.Mobile.FormCaptureApp.iOS.PICSWS;
-#endif
-#if __UWP__
-
-#endif
+﻿using PICSWebService;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using XamTest.Helpers;
 using XamTest.Models;
 
 namespace XamTest.Shared
 {
     class SoapService : ISoapService
     {
+        private readonly PICSWebServiceClient picsService;
+        public SoapService()
+        {
+            if (!string.IsNullOrEmpty(Settings.WebServiceURL))
+                picsService = new PICSWebServiceClient(Settings.WebServiceURL);
+            else
+                picsService = new PICSWebServiceClient();
+        }
+
+        private void HandleCommonResponse(PublicPICSResponse response)
+        {
+            if (!string.IsNullOrEmpty(response.NewAuthToken)) //new auth token has been generated. 
+                Settings.AuthToken = response.NewAuthToken;
+            //if (response.ResponseStatus == 8)
+                //App.Current.HadAuthenticationError = true;
+        }
+
+        private T NewRequest<T>() where T : PublicPICSRequest, new()
+        {
+            T result = new T();
+            result.Username = Settings.UserName;
+            result.Password = Settings.Password;
+            result.AuthToken = Settings.AuthToken;
+            return result;
+        }
+
+        private GenericResponse<T> SingleResponse<T>()
+        {
+            return new GenericResponse<T>();
+        }
+
+        private GenericResponse<List<T>> ListResponse<T>()
+        {
+            return new GenericResponse<List<T>>();
+        }
+
+        public async Task<string> TestWS(string test)
+        {
+            return await Task.Run(() =>
+            {
+                SimpleServiceTestRequest request = new SimpleServiceTestRequest()
+                {
+                    sInputText = test
+                };
+                return picsService.SimpleServiceTestAsync(request);
+            });
+        }
+
         public Task<GenericResponse<string>> AddOrg(DBOrganisation Org)
         {
             throw new NotImplementedException();
@@ -103,11 +144,6 @@ namespace XamTest.Shared
         }
 
         public Task<GenericResponse<Dictionary<string, string>>> GetSystemInfo(bool fullDetails = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> TestWS(string test)
         {
             throw new NotImplementedException();
         }

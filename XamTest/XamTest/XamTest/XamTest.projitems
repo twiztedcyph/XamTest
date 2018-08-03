@@ -17,6 +17,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Database.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DebugOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ISoapService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
@@ -38,7 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserAccount.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ValidationResultList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\GenericResponse.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Shared\SoapService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\VCLGeneratedCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomFormViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomFormListView.xaml.cs">
       <DependentUpon>CustomFormListView.xaml</DependentUpon>
