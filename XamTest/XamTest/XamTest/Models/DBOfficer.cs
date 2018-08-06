@@ -18,7 +18,7 @@ namespace XamTest.Models
 
         public static async Task<List<DBOfficer>> getOfficerByType(string type)
         {
-            return await App.DB.GetOfficers(type);
+            return new List<DBOfficer>();// await App.DB.GetOfficers(type);
         }
 
         public static string getOfficerTypeCode(string fieldName)

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using XamTest.Helpers;
 using XamTest.Models;
@@ -13,10 +14,11 @@ namespace XamTest.Shared
         private readonly PICSWebServiceClient picsService;
         public SoapService()
         {
-            if (!string.IsNullOrEmpty(Settings.WebServiceURL))
-                picsService = new PICSWebServiceClient(Settings.WebServiceURL);
-            else
-                picsService = new PICSWebServiceClient();
+            picsService = new PICSWebServiceClient(PICSWebServiceClient.EndpointConfiguration.BasicHttpBinding_IPICSWebService, "http://ian2017.valhalla.local/PICSWebService/PICSWebService.svc");
+            //if (!string.IsNullOrEmpty(Settings.WebServiceURL))
+            //    picsService = new PICSWebServiceClient(Settings.WebServiceURL);
+            //else
+            //    picsService = new PICSWebServiceClient("http://ian2017.valhalla.local/PICSWebService/PICSWebService.svc");
         }
 
         private void HandleCommonResponse(PublicPICSResponse response)
@@ -46,7 +48,7 @@ namespace XamTest.Shared
             return new GenericResponse<List<T>>();
         }
 
-        public async Task<string> TestWS(string test)
+        public async Task<SimpleServiceTestResponse> TestWS(string test)
         {
             return await Task.Run(() =>
             {
@@ -73,9 +75,53 @@ namespace XamTest.Shared
             throw new NotImplementedException();
         }
 
-        public Task<GenericResponse<List<DBApplicant>>> FindApplicants(FindApplicantsSoapRequest findApplicants)
+        public async Task<GenericResponse<List<DBApplicant>>> FindApplicants(FindApplicantsSoapRequest findApplicants)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            {
+                try
+                {
+
+                    SearchForApplicantsRequest req = NewRequest<SearchForApplicantsRequest>();
+                    GenericResponse<List<DBApplicant>> result = null;
+                    req.PageSize = 10;
+                    req.PageNumber = 1;
+                    req.Surname = findApplicants.Surname;
+                    req.Firstname = findApplicants.Forenames;
+                    req.Postcode = findApplicants.Postcode;
+                    req.RecruitmentOfficer = Settings.OfficerCode;
+                    req.Site = findApplicants.Sites;
+                    req.Status = Settings.GetString("L", string.Empty);
+
+                    SearchForApplicantsResponse1 res = picsService.SearchForApplicantsAsync(new SearchForApplicantsRequest1(req)).Result;
+                    HandleCommonResponse(res.SearchForApplicantsResult);
+
+                    // Error on failed response, but allow ErrorCode=2 (not found)
+                    if ((res.SearchForApplicantsResult.ResponseStatus != 0) && (res.SearchForApplicantsResult.ErrorDetails != null) && (res.SearchForApplicantsResult.ErrorDetails.ErrorCode != 2)) //Not success
+                    {
+                        throw new Exception(res.SearchForApplicantsResult.ResponseText);
+                    }
+
+                    result = ListResponse<DBApplicant>();
+                    result.Data = new List<DBApplicant>();
+                    if (res.SearchForApplicantsResult.Applicants != null)
+                    {
+                        for (int i = 0; i < res.SearchForApplicantsResult.Applicants.Count(); i++)
+                        {
+                            // Only add live applicants (not deleted or ~)
+                            //if (res.SearchForApplicantsResult.Applicants[i].SysStatus.Equals("L"))
+                                //result.Data.Add(ApplicantToDBApplicant(res.SearchForApplicantsResult.Applicants[i]));
+                        }
+                    }
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    //Xamarin.Insights.Report(ex, "Process", "FindApplicants", Xamarin.Insights.Severity.Error);
+                    //Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            });
         }
 
         public Task<GenericResponse<List<DBLearner>>> FindLearners(FindLearnersSoapRequest findLearners)
@@ -164,6 +210,11 @@ namespace XamTest.Shared
         }
 
         public Task<GenericResponse<bool>> UploadForm(DBFormInstance Form, string FileGUID)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<string> ISoapService.TestWS(string test)
         {
             throw new NotImplementedException();
         }

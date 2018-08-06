@@ -40,6 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\UserAccount.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ValidationResultList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\GenericResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\SoapService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\VCLGeneratedCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CustomFormViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CustomFormListView.xaml.cs">

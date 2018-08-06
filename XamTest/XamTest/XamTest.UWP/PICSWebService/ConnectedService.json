@@ -1,0 +1,24 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.20406.879",
+  "ExtendedData": {
+    "Uri": "http://ian2017.valhalla.local/PICSWebService/PICSWebService.svc?wsdl",
+    "Namespace": "PICSWebService",
+    "SelectedAccessLevelForGeneratedClass": "Public",
+    "GenerateMessageContract": true,
+    "ReuseTypesinReferencedAssemblies": true,
+    "ReuseTypesinAllReferencedAssemblies": true,
+    "CollectionTypeReference": {
+      "Item1": "System.Array",
+      "Item2": "System.Runtime.dll"
+    },
+    "DictionaryCollectionTypeReference": {
+      "Item1": "System.Collections.Generic.Dictionary`2",
+      "Item2": "System.Collections.dll"
+    },
+    "CheckedReferencedAssemblies": [],
+    "InstanceId": null,
+    "Name": "PICSWebService",
+    "Metadata": {}
+  }
+}

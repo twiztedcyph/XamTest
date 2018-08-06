@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using XamTest.Shared;
 using XamTest.Views;
 
 namespace XamTest
@@ -8,6 +9,9 @@ namespace XamTest
 		public MainPage()
 		{
 			InitializeComponent();
+
+            SoapService ss = new SoapService();
+            var v = ss.FindApplicants(new FindApplicantsSoapRequest() { Forenames = "a", Surname = "a"});
 		}
 
         private void btnForms_Clicked(object sender, System.EventArgs e)
