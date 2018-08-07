@@ -1,3 +1,4 @@
+using FCA.Helpers;
 using FCA.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,10 +15,22 @@ namespace FCA
         public static string Version = "Unknown Version";
         public bool HadAuthenticationError { get; set; } = false;
 
+        private static Database _DB;
+        public static Database DB
+        {
+            get
+            {
+                if (_DB == null)
+                    _DB = new Database();
+                return _DB;
+            }
+        }
+
         public App ()
 		{
 			InitializeComponent();
             Current = this;
+            DB.CreateTables();
             MainPage = new MainPage();
 		}
 
@@ -36,6 +49,7 @@ namespace FCA
 			// Handle when your app resumes
 		}
 
+        //TODO:This will need removing.
         public void SetupSoap()
         {
             Settings.WebServiceURL = "http://ian.pellcomp.net/PICSWebService/PICSWebService.svc";

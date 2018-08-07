@@ -30,6 +30,9 @@ namespace XamTest
 
             DB.CreateTables();
 
+            Settings.UserName = "ian@valhalla.local";
+            Settings.Password = "1q2w3e4R";
+
 			MainPage = new NavigationPage(new MainPage());
 		}
 

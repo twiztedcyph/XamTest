@@ -1,11 +1,11 @@
-﻿using SQLite.Net.Attributes;
+﻿using SQLite;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace FCA.Models
 {
     [Table("DBCustomForm")]
-    public class DBCustomForm : INotifyPropertyChanged
+    public class DBCustomForm : BaseDbItem
     {
         private string _FormID;
         [PrimaryKey]
@@ -106,7 +106,6 @@ namespace FCA.Models
             }
         }
 
-
         private List<DBCustomFormQuestion> _questions;
         [Ignore]
         public List<DBCustomFormQuestion> Questions
@@ -125,12 +124,6 @@ namespace FCA.Models
                     OnPropertyChanged(nameof(Questions));
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
