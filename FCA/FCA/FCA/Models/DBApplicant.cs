@@ -8,63 +8,213 @@ namespace FCA.Models
         private string _recGUID;
         [PrimaryKey]
         public string RecGUID
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _apIdent;
         public string ApIdent
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _forenames;
         public string Forenames
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _surname;
         public string Surname
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _sex;
         public string Sex
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private DateTime? _dOB;
         public DateTime? DOB
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _nINumber;
         public string NINumber
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _postCode;
         public string PostCode
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _status;
         public string Status
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _subStatus;
         public string SubStatus
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _employer;
         public string Employer
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _employerName;
         public string EmployerName
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _qualPlan;
         public string QualPlan
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _site;
         public string Site
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _uLN;
         public string ULN
-        { get; set; }
+        {
+            get { return _FormID; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
+                {
+                    _FormID = value;
+                    OnPropertyChanged(nameof(FormID));
+                }
+            }
+        }
 
         private string _recruitmentOfficer;
         public string RecruitmentOfficer
