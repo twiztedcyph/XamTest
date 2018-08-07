@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <Compile Remove="PICSWS\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <EmbeddedResource Remove="PICSWS\**" />
+    <None Remove="Helpers\**" />
+    <None Remove="PICSWS\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Helpers\DebugOptions.cs" />
+    <Compile Include="Helpers\Settings.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ServiceModel.Http">
+      <HintPath>C:\Program Files (x86)\Microsoft SDKs\UWPNuGetPackages\microsoft.netcore.universalwindowsplatform\6.1.7\ref\uap10.0.15138\System.ServiceModel.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
