@@ -16,4 +16,17 @@ namespace FCA.Controls
             };
         }
     }
+
+    public class PellGridButton : PellButton
+    {
+        //
+        public int[] LayoutParams { get; set; } = new int[4];
+        public PellGridButton(int left, int top, int colSpan, int rowSpan) : base()
+        {
+            LayoutParams[0] = left;
+            LayoutParams[1] = top;
+            LayoutParams[2] = colSpan;
+            LayoutParams[3] = rowSpan;
+        }
+    }
 }

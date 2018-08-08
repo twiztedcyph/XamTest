@@ -32,15 +32,6 @@ namespace FCA
 			InitializeComponent();
             Current = this;
 
-            Resources["plainButton"] = new Style(typeof(Button)){
-                    Setters = {
-                    new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#eee") },
-                    new Setter { Property = Button.TextColorProperty, Value = Color.Black },
-                    new Setter { Property = Button.CornerRadiusProperty, Value = 2 },
-                    new Setter { Property = Button.FontSizeProperty, Value = 40 }
-                }
-            };
-
             DB.CreateTables();
 
             //if (Settings.LoggedIn)
