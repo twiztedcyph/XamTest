@@ -9,7 +9,7 @@ namespace FCA.Interfaces
     public interface ISoapService
     {
         Task<string> TestWS(string test);
-        Task<GenericResponse<bool>> AuthenticateUser(string URL, string username, string Password);
+        Task<GenericResponse<bool>> AuthenticateUser(string username, string Password);
         Task<GenericResponse<DBFormInstance>> GetFormHeaderFromServer(string FormID);
         Task<GenericResponse<List<DBFormInstance>>> GetForms();
         Task<GenericResponse<List<DBCustomForm>>> GetCustomForms();

@@ -6,6 +6,7 @@ using FCA.UWP.PICSWS;
 using Pellcomp.Vs.Mobile.FormCaptureApp.lib;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -25,7 +26,7 @@ namespace FCA.Imp
 
         public SoapService()
         {
-            webService = new PICSWebServiceClient(new BasicHttpBinding(), new EndpointAddress(Settings.WebServiceURL));
+            webService = new PICSWebServiceClient(new BasicHttpBinding() { MaxBufferSize = 2147483647, MaxReceivedMessageSize = 2147483647}, new EndpointAddress(Settings.WebServiceURL));
         }
 
         private void HandleCommonResponse(PublicPICSResponse response)
@@ -39,9 +40,9 @@ namespace FCA.Imp
         private T NewRequest<T>() where T : PublicPICSRequest, new()
         {
             T result = new T();
-            result.Username = "ian@valhalla.local";
-            result.Password = "1q2w3e4R";
-            result.AuthToken = authToken;
+            result.Username = Settings.UserName;
+            result.Password = Settings.Password;
+            result.AuthToken = Settings.AuthToken;
             return result;
         }
 
@@ -63,14 +64,13 @@ namespace FCA.Imp
             });
         }
 
-        public async Task<GenericResponse<bool>> AuthenticateUser(string URL, string username, string Password)
+        public async Task<GenericResponse<bool>> AuthenticateUser(string username, string Password)
         {
             return await Task.Run(() =>
             {
                 try
                 {
                     GenericResponse<bool> result = SingleResponse<bool>();
-                    Settings.WebServiceURL = URL;
                     AuthenticateUserRequest req = new AuthenticateUserRequest();
                     req.Username = "WS_FORMC";
                     req.Password = "5D87C1CADCA74ACAB9C0";
@@ -139,7 +139,6 @@ namespace FCA.Imp
                     GetConfigSystemSettingRequest req = NewRequest<GetConfigSystemSettingRequest>();
                     req.ConfigSection = Section;
                     req.ConfigKey = Key;
-                    //Debug.WriteLine("Cookie Count: " + webService.CookieContainer.Count);
                     GetConfigSystemSettingResponse res = webService.GetConfigSystemSetting(req);
                     HandleCommonResponse(res);
 
@@ -154,7 +153,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -187,7 +186,7 @@ namespace FCA.Imp
                 catch (Exception ex)
                 {
                     //Xamarin.Insights.Report(ex, "Process", "GetSystemInfo",//Xamarin.Insights.Severity.Error);
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -228,7 +227,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -313,7 +312,7 @@ namespace FCA.Imp
             catch (Exception ex)
             {
                 //Xamarin.Insights.Report(ex, "Process", "FindApplicants",//Xamarin.Insights.Severity.Error);
-                //Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -387,7 +386,7 @@ namespace FCA.Imp
                 catch (Exception ex)
                 {
                    //Xamarin.Insights.Report(ex, "Process", "FindLearners",//Xamarin.Insights.Severity.Error);
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     return null;
                 }
             });
@@ -512,7 +511,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -546,7 +545,7 @@ namespace FCA.Imp
                 catch (Exception ex)
                 {
                    //Xamarin.Insights.Report(ex, "Process", "GetFileData",//Xamarin.Insights.Severity.Error);
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -605,7 +604,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -687,7 +686,7 @@ namespace FCA.Imp
                                             if (!dbInst.Fields.ContainsKey(dbField.FieldName))
                                                 dbInst.Fields.Add(dbField.FieldName, dbField);
                                             else
-                                               //Debug.writeLine("Duplicate fucking field: " + dbField.FieldName + " in form " + dbInst.Title + ": " + dbInst.FormInstanceID);
+                                               Debug.WriteLine("Duplicate fucking field: " + dbField.FieldName + " in form " + dbInst.Title + ": " + dbInst.FormInstanceID);
 
                                             if (!string.IsNullOrEmpty(oLine.FieldValue))
                                             {
@@ -770,7 +769,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -878,7 +877,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -963,7 +962,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -1020,7 +1019,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -1068,7 +1067,7 @@ namespace FCA.Imp
             }
             catch (Exception ex)
             {
-                //Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
                 throw;
             }
         }
@@ -1154,7 +1153,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -1184,7 +1183,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -1228,7 +1227,7 @@ namespace FCA.Imp
                 catch (Exception ex)
                 {
                     //Xamarin.Insights.Report(ex, "Process", "GetSingleOrganisationByGUID",//Xamarin.Insights.Severity.Error);
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     return null;
                 }
             });
@@ -1272,7 +1271,7 @@ namespace FCA.Imp
                 catch (Exception ex)
                 {
                     //Xamarin.Insights.Report(ex, "Process", "GetSingleOrganisationByPlace",//Xamarin.Insights.Severity.Error);
-                    //Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     return null;
                 }
             });
@@ -1365,7 +1364,7 @@ namespace FCA.Imp
                 }
                 catch (Exception ex)
                 {
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     throw;
                 }
             });
@@ -1399,7 +1398,7 @@ namespace FCA.Imp
                 catch (Exception ex)
                 {
                    //Xamarin.Insights.Report(ex, "Process", "UploadAttachment",//Xamarin.Insights.Severity.Error);
-                   //Debug.writeLine(ex.Message);
+                   Debug.WriteLine(ex.Message);
                     //todo handle an error report
                     return null;
                 }

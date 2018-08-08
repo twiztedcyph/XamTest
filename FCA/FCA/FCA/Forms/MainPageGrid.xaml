@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCA.Forms.MainPageGrid">
+    <ContentPage.Content>
+        <Grid x:Name="controlGrid" RowSpacing="1" ColumnSpacing="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Text = "Forms" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource plainButton}" />
+            <Button Text = "Learners" Grid.Row="1" Grid.Column="3" Style="{StaticResource plainButton }" />
+            <Button Text = "Applicants" Grid.Row="2" Grid.Column="3" Style="{StaticResource plainButton}" />
+            <Button Text = "Companies" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Style="{StaticResource plainButton}" />
+            <Button Text = "Tools" Grid.Row="2" Grid.Column="4" Style="{StaticResource plainButton}" />
+            <Button Text = "Exit" Grid.Row="2" Grid.Column="5" Style="{StaticResource plainButton}" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

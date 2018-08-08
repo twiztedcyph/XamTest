@@ -1,7 +1,10 @@
-﻿using SQLite.Net.Attributes;
+﻿using PropertyChanged;
+using SQLite;
 
 namespace FCA.Models
 {
+    [AddINotifyPropertyChangedInterface]
+    [Table("DBSite")]
     public class DBSite
     {
         [PrimaryKey]

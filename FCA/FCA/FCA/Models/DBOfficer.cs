@@ -1,10 +1,13 @@
 ﻿using Pellcomp.Vs.Mobile.FormCaptureApp.lib;
-using SQLite.Net.Attributes;
+using PropertyChanged;
+using SQLite;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FCA.Models
 {
+    [AddINotifyPropertyChangedInterface]
+    [Table("DBOfficer")]
     public class DBOfficer
     {
         [PrimaryKey]
@@ -13,12 +16,9 @@ namespace FCA.Models
         public string Surname { get; set; }
         public string Roles { get; set; }
 
-        public static async Task<List<DBOfficer>> getOfficerByType(string type)
-        {
-            return new List<DBOfficer>();// await App.DB.GetOfficers(type);
-        }
+        public static async Task<List<DBOfficer>> GetOfficerByType(string type) => await App.DB.GetOfficers(type);
 
-        public static string getOfficerTypeCode(string fieldName)
+        public static string GetOfficerTypeCode(string fieldName)
         {
             if (fieldName.Equals(uImportConsts.MAIN_OFFICER.ToUpper()))
             {

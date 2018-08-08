@@ -9,6 +9,7 @@ namespace XamTest.Helpers
     public static class Settings
     {
         public const string MIN_SUPPORTED_VERSION = "3.1.1.0";
+        public const string ALIAS_PREFIX = "FCINSTANCE__";
         private static readonly string USERNAME_KEY = "username_key";
         private static readonly string PASSWORD_KEY = "password_key";
         private static readonly string OFFICER_CODE_KEY = "officer_code_key";

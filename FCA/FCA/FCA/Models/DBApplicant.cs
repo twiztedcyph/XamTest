@@ -1,233 +1,32 @@
-﻿using SQLite;
+﻿using PropertyChanged;
+using SQLite;
 using System;
 
 namespace FCA.Models
 {
-    public class DBApplicant : BaseDbItem
+    [AddINotifyPropertyChangedInterface]
+    [Table("DBApplicant")]
+    public class DBApplicant
     {
-        private string _recGUID;
         [PrimaryKey]
-        public string RecGUID
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _apIdent;
-        public string ApIdent
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _forenames;
-        public string Forenames
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _surname;
-        public string Surname
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _sex;
-        public string Sex
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private DateTime? _dOB;
-        public DateTime? DOB
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _nINumber;
-        public string NINumber
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _postCode;
-        public string PostCode
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _status;
-        public string Status
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _subStatus;
-        public string SubStatus
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _employer;
-        public string Employer
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _employerName;
-        public string EmployerName
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _qualPlan;
-        public string QualPlan
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _site;
-        public string Site
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _uLN;
-        public string ULN
-        {
-            get { return _FormID; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(_FormID) || !_FormID.Equals(value))
-                {
-                    _FormID = value;
-                    OnPropertyChanged(nameof(FormID));
-                }
-            }
-        }
-
-        private string _recruitmentOfficer;
-        public string RecruitmentOfficer
-        { get; set; }
-
-        private DateTime _downloaded;
-        public DateTime Downloaded
-        { get; set; }
-
-        private DateTime _lastUsed;
-        public DateTime LastUsed
-        { get; set; }
-
+        public string RecGUID { get; set; }
+        public string ApIdent { get; set; }
+        public string Forenames { get; set; }
+        public string Surname { get; set; }
+        public string Sex { get; set; }
+        public DateTime? DOB { get; set; }
+        public string NINumber { get; set; }
+        public string PostCode { get; set; }
+        public string Status { get; set; }
+        public string SubStatus { get; set; }
+        public string Employer { get; set; }
+        public string EmployerName { get; set; }
+        public string QualPlan { get; set; }
+        public string Site { get; set; }
+        public string ULN { get; set; }
+        public string RecruitmentOfficer { get; set; }
+        public DateTime Downloaded { get; set; }
+        public DateTime LastUsed { get; set; }
 
         [Ignore]
         public string DisplayName
@@ -238,8 +37,8 @@ namespace FCA.Models
         [Ignore]
         public string DisplaySex
         {
-            get 
-            { 
+            get
+            {
                 if (Sex.Equals("M"))
                 {
                     return "Male";
@@ -275,5 +74,4 @@ namespace FCA.Models
             }
         }
     }
-
 }

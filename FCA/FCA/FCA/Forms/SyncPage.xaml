@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCA.Forms.SyncPage">
+    <ContentPage.Content>
+        <StackLayout Padding="20" VerticalOptions="CenterAndExpand" Spacing="10">
+            <Label x:Name="lblProgress" IsVisible="false" FontSize="Large" HorizontalOptions="Center" />
+            <ActivityIndicator IsVisible="false" IsRunning="False" x:Name="aiLoading" Color="White" HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,9 +1,12 @@
 ﻿using System;
 using Pellcomp.Vs.Mobile.FormCaptureApp.lib;
-using SQLite.Net.Attributes;
+using PropertyChanged;
+using SQLite;
 
 namespace FCA.Models
 {
+    [AddINotifyPropertyChangedInterface]
+    [Table("DBLearner")]
     public class DBLearner
     {
         [PrimaryKey]
@@ -31,15 +34,9 @@ namespace FCA.Models
         public DateTime? Downloaded { get; set; }
 
         [Ignore]
-        public string DisplayName
-        {
-            get { return $"{Surname}, {Firstname}"; }
-        }
+        public string DisplayName => $"{Surname}, {Firstname}";
 
         [Ignore]
-        public string DisplaySex
-        {
-            get { return SharedListLoad.SEX[Sex]; }
-        }
+        public string DisplaySex => SharedListLoad.SEX[Sex];
     }
 }

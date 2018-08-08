@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCA.Forms.ToolsPage">
+    <ContentPage.Content>
+        <StackLayout Margin="10" VerticalOptions="FillAndExpand" Spacing="30">
+            <StackLayout>
+                <Label Text="Connection Settings" FontSize="Large" FontAttributes="Bold" ></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="Medium" x:Name="lblWifiOnly" VerticalOptions="Center" HorizontalOptions="Start"></Label>
+                    <Switch x:Name="swWifiOnly" VerticalOptions="Center" HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout >
+                <Label Text="Login Settings" FontSize="Large" FontAttributes="Bold"></Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontSize="Medium" Text="Current user:" VerticalOptions="Center" HorizontalOptions="Start"></Label>
+                    <Label FontSize="Medium" x:Name="lblUsername" VerticalOptions="Center" HorizontalOptions="EndAndExpand"></Label>
+                </StackLayout>
+                <Button x:Name="btnLogout" Text="Logout" Clicked="btnLogout_Clicked"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

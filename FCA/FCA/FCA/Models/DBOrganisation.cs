@@ -1,7 +1,10 @@
-﻿using SQLite.Net.Attributes;
+﻿using PropertyChanged;
+using SQLite;
 
 namespace FCA.Models
 {
+    [AddINotifyPropertyChangedInterface]
+    [Table("DBOrganisation")]
     public class DBOrganisation
     {
         [PrimaryKey]
@@ -17,7 +20,7 @@ namespace FCA.Models
         public string Phone { get; set; }
         public string Website { get; set; }
         public string Email { get; set; }
-        public string EdsERN { get; set; }        
+        public string EdsERN { get; set; }
         public string Roles { get; set; }
         public string Status { get; set; }
         public string SysStatus { get; set; }

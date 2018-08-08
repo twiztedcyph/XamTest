@@ -1,20 +1,16 @@
 ﻿using Pellcomp.Vs.Mobile.FormCaptureApp.lib;
-using SQLite.Net.Attributes;
+using PropertyChanged;
+using SQLite;
 using System;
 using System.Collections.Generic;
+using XamTest.Helpers;
 
 namespace FCA.Models
 {
+    [AddINotifyPropertyChangedInterface]
+    [Table("DBFormInstance")]
     public class DBFormInstance
     {
-        public const string ALIAS_PREFIX = "FCINSTANCE__";
-
-
-        public bool IsFormField(DBFormField Field, string TargetName)
-        {
-            return Field.FieldName.ToUpper() == (ALIAS_PREFIX + TargetName).ToUpper();
-        }
-
         [PrimaryKey]
         public string FormInstanceID { get; set; }
         public string FormType { get; set; }
@@ -28,7 +24,64 @@ namespace FCA.Models
         public string DefaultTrIdent { get; set; }
         public string DefaultApIdent { get; set; }
         public string DefaultOrgRecGuid { get; set; }
-        
+        public string UserSignatureFileGUID { get; set; }
+        public string UserSignatureData { get; set; }   //ToDo: Rename to UserSignatureFilePath
+        public string LearnerSignatureFileGUID { get; set; }
+        public string LearnerSignatureData { get; set; }    //ToDo: Rename to LearnerSignatureFilePath
+        public string EmpSignatureFileGUID { get; set; }
+        public string EmpSignatureData { get; set; }    //ToDo: Rename to EmpSignatureFilePath
+        public string SignedDocData { get; set; }
+        public string CustomFormID { get; set; }
+        public DateTime LastUploaded { get; set; }
+        public string LastUploadStatus { get; set; }
+        public string OriginatingForm { get; set; }
+        public string CreateVersion { get; set; }
+        public string LastModVersion { get; set; }
+        public DateTime Due { get; set; }
+        public string HOFeedBack { get; set; }
+        public string SourceApplicID { get; set; }
+        public int SourceCRMEventID { get; set; }
+        public string EmpBSignatureFileGUID { get; set; }
+        public string EmpCSignatureFileGUID { get; set; }
+        public string OfficerASignatureFileGUID { get; set; }
+        public string OfficerBSignatureFileGUID { get; set; }
+        public string EmpBSignatureData { get; set; }
+        public string EmpCSignatureData { get; set; }
+        public string OfficerASignatureData { get; set; }
+        public string OfficerBSignatureData { get; set; }
+
+        [Ignore]
+        public string CustomFormTypeTitle { get; set; }
+        [Ignore]
+        public string StatusText { get; set; }
+        [Ignore]
+        public Dictionary<string, DBFormField> Fields { get; set; } = new Dictionary<string, DBFormField>();
+        [Ignore]
+        public List<DBFormInstanceAttachment> Attachments { get; set; } = new List<DBFormInstanceAttachment>();
+
+        //TODO: Do these need moving?
+        public void UpdateInstanceField(string fieldName, string fieldValue, string fieldType)
+        {
+            DBFormField fld = null;
+            if (Fields.Count > 0 && Fields.ContainsKey(Settings.ALIAS_PREFIX + fieldName.ToUpper()))
+            {
+                fld = Fields[Settings.ALIAS_PREFIX + fieldName];
+                fld.FieldValue = fieldValue;
+                fld.FieldType = fieldType;
+            }
+            else
+            {
+                //Create Field
+                fld = new DBFormField();
+                fld.FieldName = Settings.ALIAS_PREFIX + fieldName.ToUpper();
+                fld.FieldValue = fieldValue;
+                fld.FieldType = fieldType;
+                fld.FormInstanceID = this.FormInstanceID;
+                fld.RecGUID = fld.FormInstanceID + fld.FieldName;
+                Fields.Add(fld.FieldName, fld);
+            }
+        }
+
         public void SetSignatureFileGUID(RequiredSignature type, string GUID)
         {
             switch (type)
@@ -94,7 +147,6 @@ namespace FCA.Models
             }
             return GUID;
         }
-
 
         public void SetSignaturePath(RequiredSignature type, string Path)
         {
@@ -162,98 +214,9 @@ namespace FCA.Models
             return Path;
         }
 
-        public string UserSignatureFileGUID { get; set; }
-        //ToDo: Rename to UserSignatureFilePath
-        public string UserSignatureData { get; set; }
-
-        public string LearnerSignatureFileGUID { get; set; }
-        //ToDo: Rename to LearnerSignatureFilePath
-        public string LearnerSignatureData { get; set; }
-
-        public string EmpSignatureFileGUID { get; set; }
-        //ToDo: Rename to EmpSignatureFilePath
-        public string EmpSignatureData { get; set; }
-
-        public string SignedDocData { get; set; }
-
-        public string CustomFormID { get; set; }
-        
-        public DateTime LastUploaded { get; set; }
-        public string LastUploadStatus { get; set; }
-        public string OriginatingForm { get; set; }
-        public string CreateVersion { get; set; }
-        public string LastModVersion { get; set; }
-        public DateTime Due { get; set; }
-        public string HOFeedBack { get; set; }
-        public string SourceApplicID { get; set; }
-        public int SourceCRMEventID { get; set; }
-
-        private Dictionary<string, DBFormField> _fields;
-        [Ignore]
-        public Dictionary<string, DBFormField> Fields
+        public bool IsFormField(DBFormField Field, string TargetName)
         {
-            get
-            {
-                if (_fields == null)
-                    _fields = new Dictionary<string, DBFormField>();
-                return _fields;
-            }
-            set
-            {
-                _fields = value;
-            }
-        }
-
-        private List<DBFormInstanceAttachment> _attachments;
-        [Ignore]
-        public List<DBFormInstanceAttachment> Attachments
-        {
-            get
-            {
-                if (_attachments == null)
-                    _attachments = new List<DBFormInstanceAttachment>();
-                return _attachments;
-            }
-            set
-            {
-                _attachments = value;
-            }
-        }
-
-
-        [Ignore]
-        public string CustomFormTypeTitle { get; set; }
-        [Ignore]
-        public string StatusText { get; set; }
-        public string EmpBSignatureFileGUID { get; set; }
-        public string EmpCSignatureFileGUID { get; set; }
-        public string OfficerASignatureFileGUID { get; set; }
-        public string OfficerBSignatureFileGUID { get; set; }
-        public string EmpBSignatureData { get; set; }
-        public string EmpCSignatureData { get; set; }
-        public string OfficerASignatureData { get; set; }
-        public string OfficerBSignatureData { get; set; }
-
-        public void UpdateInstanceField(string fieldName, string fieldValue, string fieldType)
-        {
-            DBFormField fld = null;
-            if (Fields.Count > 0 && Fields.ContainsKey(ALIAS_PREFIX + fieldName.ToUpper()))
-            {
-                fld = Fields[ALIAS_PREFIX + fieldName];
-                fld.FieldValue = fieldValue;
-                fld.FieldType = fieldType;
-            }
-            else
-            {
-                //Create Field
-                fld = new DBFormField();
-                fld.FieldName = ALIAS_PREFIX + fieldName.ToUpper();
-                fld.FieldValue = fieldValue;
-                fld.FieldType = fieldType;
-                fld.FormInstanceID = this.FormInstanceID;
-                fld.RecGUID = fld.FormInstanceID + fld.FieldName;
-                Fields.Add(fld.FieldName, fld);
-            }
+            return Field.FieldName.Equals(Settings.ALIAS_PREFIX + TargetName, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

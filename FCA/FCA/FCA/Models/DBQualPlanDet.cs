@@ -1,8 +1,11 @@
-﻿using SQLite.Net.Attributes;
+﻿using PropertyChanged;
+using SQLite;
 using System;
 
 namespace FCA.Models
 {
+    [AddINotifyPropertyChangedInterface]
+    [Table("DBQualPlanDet")]
     public class DBQualPlanDet
     {
         [PrimaryKey]
@@ -11,18 +14,35 @@ namespace FCA.Models
         public string QualType { get; set; }
         public string QualCode { get; set; }
         public string Title { get; set; }
-
         public string AwardingBody { get; set; }
-
         public string Level { get; set; }
-
         public string StartUnit { get; set; }
-
         public int StartTime { get; set; }
-
         public string AchievementUnit { get; set; }
-
         public int AchievementTime { get; set; }
+
+        [Ignore]
+        public int TypeOrdering
+        {
+            get
+            {
+                switch (QualType)
+                {
+                    case "M":
+                        return 1;
+                    case "T":
+                        return 2;
+                    case "K":
+                        return 3;
+                    case "S":
+                        return 4;
+                    case "O":
+                        return 5;
+                    default:
+                        return 9;
+                }
+            }
+        }
 
         public void CalcPlanDate(DateTime EpisodeStart, ref DateTime AimStart, ref DateTime AimExpEnd)
         {
@@ -66,28 +86,6 @@ namespace FCA.Models
                         }
                         AimExpEnd = AimStart.AddMonths(AchievementTime).AddDays(nNASExtraDays - 1);
                     }
-                }
-            }
-        }
-        [Ignore]
-        public int TypeOrdering
-        {
-            get
-            {
-                switch (QualType)
-                {
-                    case "M":
-                        return 1;
-                    case "T":
-                        return 2;
-                    case "K":
-                        return 3;
-                    case "S":
-                        return 4;
-                    case "O":
-                        return 5;
-                    default:
-                        return 9;
                 }
             }
         }

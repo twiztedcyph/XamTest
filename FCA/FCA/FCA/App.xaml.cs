@@ -1,3 +1,4 @@
+using FCA.Forms;
 using FCA.Helpers;
 using FCA.Interfaces;
 using Xamarin.Forms;
@@ -30,11 +31,35 @@ namespace FCA
 		{
 			InitializeComponent();
             Current = this;
-            DB.CreateTables();
-            MainPage = new MainPage();
-		}
 
-		protected override void OnStart ()
+            Resources["plainButton"] = new Style(typeof(Button)){
+                    Setters = {
+                    new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#eee") },
+                    new Setter { Property = Button.TextColorProperty, Value = Color.Black },
+                    new Setter { Property = Button.CornerRadiusProperty, Value = 2 },
+                    new Setter { Property = Button.FontSizeProperty, Value = 40 }
+                }
+            };
+
+            DB.CreateTables();
+
+            //if (Settings.LoggedIn)
+                ShowMainPage();
+            //else
+                //ShowLoginPage();
+        }
+
+        public void ShowLoginPage()
+        {
+            MainPage = new NavigationPage(new LoginPage());
+        }
+
+        public void ShowMainPage()
+        {
+            MainPage = new NavigationPage(new MainPageGrid());
+        }
+
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}
@@ -50,9 +75,9 @@ namespace FCA
 		}
 
         //TODO:This will need removing.
-        public void SetupSoap()
+        public void SetupSoap(string webServiceURL)
         {
-            Settings.WebServiceURL = "http://ian.pellcomp.net/PICSWebService/PICSWebService.svc";
+            Settings.WebServiceURL = webServiceURL;
             soapService = DependencyService.Get<ISoapService>();
         }
 	}
