@@ -15,41 +15,67 @@ namespace FCA.Forms
     {
         private Layout<View> _mainPageLayoutView;
         private List<Button> _buttons;
+        private double _width, _height;
 
         public MainPageGrid()
         {
             InitializeComponent();
             SetButtons();
-            SetLayoutView();
-            base.Content = _mainPageLayoutView;
-            
+            SetToolBarItems();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            SizeChanged += MainPageGrid_SizeChanged;
+            AdaptLayout(true);
         }
 
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
 
-            if (this.Width != width || this.Height != height)
+            if (_width != width || _height != height)
             {
-                if (width > height)
-                {
-                    
-                }
-                else if (height > width)
-                {
-
-                }
+                _width = width;
+                _height = height;
             }
         }
+
+        private void MainPageGrid_SizeChanged(object sender, EventArgs e)
+        {
+            AdaptLayout(false);
+        }
+
+        private void AdaptLayout(bool setContent)
+        {
+            bool layoutChanged = false;
+            if (_width > _height && (setContent || Content is StackLayout))
+            {
+                if (Device.Idiom == TargetIdiom.Desktop && _width > 1400)
+                    SetDesktopLayout();
+                else
+                    SetMobileLandscapeLayout();
+                layoutChanged = true;
+            }
+            else if (_height >= _width && (setContent || Content is Grid))
+            {
+                SetMobilePortraitLayout();
+                layoutChanged = true;
+            }
+            if (layoutChanged || setContent)
+                Content = _mainPageLayoutView;
+        }
+
 
         private void SetButtons()
         {
             Button btnLearners = new PellGridButton(3, 1, 1, 1) { Text = "Learners", BackgroundColor = PelColours.StaticList.Info };
-            btnLearners.IsVisible = Settings.GetBool(oPICSConfig.cfgKey_FCA_Learners_Enabled, false); //TODO: Make default false;
+            btnLearners.IsVisible = Settings.GetBool(oPICSConfig.cfgKey_FCA_Learners_Enabled, true); //TODO: Make default false;
             btnLearners.Clicked += BtnLearners_Clicked;
 
             Button btnApplicants = new PellGridButton(3, 2, 1, 1) { Text = "Applicants", BackgroundColor = PelColours.StaticList.Info };
-            btnApplicants.IsVisible = Settings.GetBool(oPICSConfig.cfgKey_FCA_Apps_Enabled, false); //TODO: Make default false;
+            btnApplicants.IsVisible = Settings.GetBool(oPICSConfig.cfgKey_FCA_Apps_Enabled, true); //TODO: Make default false;
             btnApplicants.Clicked += BtnApplicants_Clicked;
 
             Button btnForms = new PellGridButton(1, 1, 2, 2) { Text = "Forms", BackgroundColor = PelColours.StaticList.Success};
@@ -65,6 +91,17 @@ namespace FCA.Forms
             btnExit.Clicked += BtnExit_Clicked;
 
             _buttons = new List<Button>() { btnForms, btnLearners, btnApplicants, btnCompanies, btnTools, btnExit };
+        }
+
+        private void SetToolBarItems()
+        {
+            ToolbarItem btnSync = new ToolbarItem() { Text = "Sync", Order = ToolbarItemOrder.Primary, Icon = "sync.png" };
+            btnSync.Clicked += BtnSync_Clicked;
+            ToolbarItems.Add(btnSync);
+
+            ToolbarItem btnExit = new ToolbarItem() { Text = "Exit", Order = ToolbarItemOrder.Primary, Icon = "exit.png" };
+            btnExit.Clicked += BtnExit_Clicked;
+            ToolbarItems.Add(btnExit);
         }
 
         private void BtnExit_Clicked(object sender, EventArgs e)
@@ -154,17 +191,17 @@ namespace FCA.Forms
             {
                 case TargetIdiom.Desktop:
                 case TargetIdiom.Tablet:
-                    SetDesktopGrid();
+                    SetDesktopLayout();
                     break;
                 case TargetIdiom.Phone:
-                    SetMobileGrid();
+                    SetMobilePortraitLayout();
                     break;
                 default:
                     throw new NotSupportedException("The device you are using is not supported.");
             }
         }
 
-        private void SetDesktopGrid()
+        private void SetDesktopLayout()
         {
             //7x4 for desktop and tablet. This allows for the FCA look
             _mainPageLayoutView = new Grid()
@@ -198,7 +235,37 @@ namespace FCA.Forms
             }
         }
 
-        private void SetMobileGrid()
+        private void SetMobileLandscapeLayout()
+        {
+            //7x4 for desktop and tablet. This allows for the FCA look
+            _mainPageLayoutView = new Grid()
+            {
+                RowSpacing = 1,
+                ColumnSpacing = 1
+            };
+            //Columns
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            if (_buttons.Where(x => x.IsVisible).Count() >= 5)
+            {
+                (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            }
+            //Rows
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+            int colIndex = 1;
+            foreach (PellGridButton button in _buttons)
+            {
+                (_mainPageLayoutView as Grid).Children.Add(button, button.LayoutParams[0]-1, button.LayoutParams[1]-1);
+                Grid.SetColumnSpan(button, button.LayoutParams[2]);
+                Grid.SetRowSpan(button, button.LayoutParams[3]);
+            }
+        }
+
+        private void SetMobilePortraitLayout()
         {
             //StackLayout for mobile
             _mainPageLayoutView = new StackLayout()
