@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Pel:FCAContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FCA.Forms.ApplicantList"
+    xmlns:Pel="clr-namespace:FCA.Forms"
+    xmlns:local="clr-namespace:FCA.ViewModels">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" Margin="10">
+            <SearchBar Placeholder="Search by name..." x:Name="edSearchBarName" HeightRequest="40" SearchButtonPressed="edSearchBarName_SearchButtonPressed" TextChanged="edSearchBarName_TextChanged"></SearchBar>
+            <ListView x:Name="FormView" HasUnevenRows="True" ItemTapped="FormView_ItemTapped" ItemsSource="{x:Static local:ApplicantListViewModel}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" Spacing="5" Padding="5">
+                                <StackLayout Padding="5" Spacing="0" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding DisplayName}" FontSize="Large" />
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Spacing="5" Padding="5">
+                                        <Label Text="PostCode: " FontSize="Small" HorizontalOptions="End" />
+                                        <Label Text="{Binding PostCode}" FontSize="Small" HorizontalOptions="End" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Import from Server" Order="Primary" Clicked="ToolbarItem_Clicked" Icon="download.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+</Pel:FCAContentPage>

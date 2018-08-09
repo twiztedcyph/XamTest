@@ -34,7 +34,6 @@ namespace FCA.Forms
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
-
             if (_width != width || _height != height)
             {
                 _width = width;
@@ -50,21 +49,39 @@ namespace FCA.Forms
         private void AdaptLayout(bool setContent)
         {
             bool layoutChanged = false;
-            if (_width > _height && (setContent || Content is StackLayout))
+
+
+            if (Device.Idiom == TargetIdiom.Desktop)
             {
-                if (Device.Idiom == TargetIdiom.Desktop && _width > 1400)
+                if (_width >= 1000 && (setContent || Content is StackLayout))
+                {
                     SetDesktopLayout();
-                else
-                    SetMobileLandscapeLayout();
-                layoutChanged = true;
+                    layoutChanged = true;
+                }
+                else if (_width < 1000 && (setContent || Content is Grid))
+                {
+                    SetMobilePortraitLayout();
+                    layoutChanged = true;
+                }
             }
-            else if (_height >= _width && (setContent || Content is Grid))
+            else
             {
-                SetMobilePortraitLayout();
-                layoutChanged = true;
+                if (_height >= _width && (setContent || Content is Grid))
+                {
+                    SetMobilePortraitLayout();
+                    layoutChanged = true;
+                }
+                else if (_width > _height && (setContent || Content is StackLayout))
+                {
+                    SetMobileLandscapeLayout();
+                    layoutChanged = true;
+                }
             }
+
             if (layoutChanged || setContent)
-                Content = _mainPageLayoutView;
+            {
+                Content =_mainPageLayoutView;
+            }
         }
 
 
@@ -104,6 +121,103 @@ namespace FCA.Forms
             ToolbarItems.Add(btnExit);
         }
 
+        private void SetLayoutView()
+        {
+            switch (Device.Idiom)
+            {
+                case TargetIdiom.Desktop:
+                case TargetIdiom.Tablet:
+                    SetDesktopLayout();
+                    break;
+                case TargetIdiom.Phone:
+                    SetMobilePortraitLayout();
+                    break;
+                default:
+                    throw new NotSupportedException("The device you are using is not supported.");
+            }
+        }
+
+        private void SetDesktopLayout()
+        {
+            //7x4 for desktop and tablet. This allows for the FCA look
+            _mainPageLayoutView = new Grid()
+            {
+                RowSpacing = 1,
+                ColumnSpacing = 1
+            };
+            //Columns
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+            if (_buttons.Where(x => x.IsVisible).Count() >= 5)
+            {
+                (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+                (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            }
+            else
+                (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            //Rows
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(200) });
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(200) });
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+            foreach (PellGridButton button in _buttons)
+            {
+                (_mainPageLayoutView as Grid).Children.Add(button, button.LayoutParams[0], button.LayoutParams[1]);
+                Grid.SetColumnSpan(button, button.LayoutParams[2]);
+                Grid.SetRowSpan(button, button.LayoutParams[3]);
+            }
+        }
+
+        private void SetMobileLandscapeLayout()
+        {
+            //7x4 for desktop and tablet. This allows for the FCA look
+            _mainPageLayoutView = new Grid()
+            {
+                RowSpacing = 1,
+                ColumnSpacing = 1
+            };
+            //Columns
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            if (_buttons.Where(x => x.IsVisible).Count() >= 5)
+            {
+                (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            }
+            //Rows
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+            int colIndex = 1;
+            foreach (PellGridButton button in _buttons)
+            {
+                (_mainPageLayoutView as Grid).Children.Add(button, button.LayoutParams[0]-1, button.LayoutParams[1]-1);
+                Grid.SetColumnSpan(button, button.LayoutParams[2]);
+                Grid.SetRowSpan(button, button.LayoutParams[3]);
+            }
+        }
+
+        private void SetMobilePortraitLayout()
+        {
+            //StackLayout for mobile
+            _mainPageLayoutView = new StackLayout()
+            {
+                Spacing = 10,
+                Padding = 10
+            };
+
+            foreach (Button button in _buttons)
+            {
+                (_mainPageLayoutView as StackLayout).Children.Add(button);
+            }
+        }
+
         private void BtnExit_Clicked(object sender, EventArgs e)
         {
             //
@@ -122,7 +236,7 @@ namespace FCA.Forms
         {
             if (CanStart("BtnApplicantsClicked"))
             {
-                //await Navigation.PushAsync(new ApplicantList());
+                await Navigation.PushAsync(new ApplicantList());
                 EndTask("BtnApplicantsClicked");
             }
         }
@@ -182,101 +296,6 @@ namespace FCA.Forms
             {
                 //await Navigation.PushAsync(new LearnersList());
                 EndTask("BtnLearnersClicked");
-            }
-        }
-
-        private void SetLayoutView()
-        {
-            switch (Device.Idiom)
-            {
-                case TargetIdiom.Desktop:
-                case TargetIdiom.Tablet:
-                    SetDesktopLayout();
-                    break;
-                case TargetIdiom.Phone:
-                    SetMobilePortraitLayout();
-                    break;
-                default:
-                    throw new NotSupportedException("The device you are using is not supported.");
-            }
-        }
-
-        private void SetDesktopLayout()
-        {
-            //7x4 for desktop and tablet. This allows for the FCA look
-            _mainPageLayoutView = new Grid()
-            {
-                RowSpacing = 1,
-                ColumnSpacing = 1
-            };
-            //Columns
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            if (_buttons.Where(x => x.IsVisible).Count() >= 5)
-            {
-                (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            }
-            //Rows
-            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-
-            int colIndex = 1;
-            foreach (PellGridButton button in _buttons)
-            {
-                (_mainPageLayoutView as Grid).Children.Add(button, button.LayoutParams[0], button.LayoutParams[1]);
-                Grid.SetColumnSpan(button, button.LayoutParams[2]);
-                Grid.SetRowSpan(button, button.LayoutParams[3]);
-            }
-        }
-
-        private void SetMobileLandscapeLayout()
-        {
-            //7x4 for desktop and tablet. This allows for the FCA look
-            _mainPageLayoutView = new Grid()
-            {
-                RowSpacing = 1,
-                ColumnSpacing = 1
-            };
-            //Columns
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            if (_buttons.Where(x => x.IsVisible).Count() >= 5)
-            {
-                (_mainPageLayoutView as Grid).ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            }
-            //Rows
-            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            (_mainPageLayoutView as Grid).RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-
-            int colIndex = 1;
-            foreach (PellGridButton button in _buttons)
-            {
-                (_mainPageLayoutView as Grid).Children.Add(button, button.LayoutParams[0]-1, button.LayoutParams[1]-1);
-                Grid.SetColumnSpan(button, button.LayoutParams[2]);
-                Grid.SetRowSpan(button, button.LayoutParams[3]);
-            }
-        }
-
-        private void SetMobilePortraitLayout()
-        {
-            //StackLayout for mobile
-            _mainPageLayoutView = new StackLayout()
-            {
-                Spacing = 10,
-                Padding = 10
-            };
-
-            foreach (Button button in _buttons)
-            {
-                (_mainPageLayoutView as StackLayout).Children.Add(button);
             }
         }
     }
