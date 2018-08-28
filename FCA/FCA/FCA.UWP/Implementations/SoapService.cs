@@ -21,12 +21,30 @@ namespace FCA.Imp
     public class SoapService : ISoapService
     {
         private const int MAX_LEARNER_DOWNLOAD = 10;
-        IPICSWebService webService;
         string authToken = string.Empty;
 
-        public SoapService()
+        private static IPICSWebService _webService;
+        static IPICSWebService webService
         {
-            webService = new PICSWebServiceClient(new BasicHttpBinding() { MaxBufferSize = 2147483647, MaxReceivedMessageSize = 2147483647}, new EndpointAddress(Settings.WebServiceURL));
+            get
+            {
+                if (_webService == null)
+                    _webService = GetService();
+                return _webService;
+            }
+        }
+
+        private static PICSWebServiceClient GetService()
+        {
+            BasicHttpBinding binding = new BasicHttpBinding()
+            {
+                MaxBufferSize = 2147483647,
+                MaxReceivedMessageSize = 2147483647
+            };
+            if (Settings.WebServiceURL.StartsWith("https"))
+                binding.Security.Mode = BasicHttpSecurityMode.Transport;
+
+            return new PICSWebServiceClient(binding, new EndpointAddress(Settings.WebServiceURL));
         }
 
         private void HandleCommonResponse(PublicPICSResponse response)
@@ -285,9 +303,9 @@ namespace FCA.Imp
                 req.Postcode = findApplicants.Postcode;
                 req.RecruitmentOfficer = findApplicants.RecruitmentOfficer;
                 req.Site = findApplicants.Sites;
-                req.Status = fldOrgs.CStatusLive;
+                req.Status = Settings.GetString(oPICSConfig.cfgKey_FCA_Apps_Filter_Status, string.Empty);
 
-                SearchForApplicantsResponse res = webService.SearchForApplicantsAsync(req).Result;
+                SearchForApplicantsResponse res = await webService.SearchForApplicantsAsync(req);
                 HandleCommonResponse(res);
 
                 // Error on failed response, but allow ErrorCode=2 (not found)
@@ -303,7 +321,7 @@ namespace FCA.Imp
                     for (int i = 0; i < res.Applicants.Count(); i++)
                     {
                         // Only add live applicants (not deleted or ~)
-                        if (res.Applicants[i].SysStatus.Equals("L"))
+                        if (res.Applicants[i].SysStatus.Equals(fldOrgs.CStatusLive))
                             result.Data.Add(ApplicantToDBApplicant(res.Applicants[i]));
                     }
                 }

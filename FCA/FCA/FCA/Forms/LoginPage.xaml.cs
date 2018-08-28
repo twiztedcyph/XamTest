@@ -46,6 +46,11 @@ namespace FCA.Forms
 
         async void btnLoginClicked(object sender, EventArgs args)
         {
+            await DoLogin();
+        }
+
+        private async Task DoLogin()
+        {
             if (!string.IsNullOrWhiteSpace(edWebService.Text) && !string.IsNullOrWhiteSpace(edUsername.Text) && !string.IsNullOrWhiteSpace(edPassword.Text))
             {
                 lblProgress.Text = "Logging in...";
@@ -103,6 +108,16 @@ namespace FCA.Forms
         {
             pnProgress.IsVisible = false;
             pnEntryWrapper.IsVisible = true;
+        }
+
+        private void edWebService_Completed(object sender, EventArgs e)
+        {
+
+        }
+
+        async void edPassword_Completed(object sender, EventArgs e)
+        {
+            await DoLogin();
         }
     }
 }

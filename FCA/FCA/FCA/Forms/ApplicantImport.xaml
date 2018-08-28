@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Pel:FCAContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCA.Forms.ApplicantImport"
+             xmlns:Pel="clr-namespace:FCA.Forms">
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <ActivityIndicator x:Name="aiLoading" IsRunning="false" IsVisible="False" />
+            <Label Text="Applicant Surname"></Label>
+            <Entry x:Name="edSurname"></Entry>
+            <Label Text="Applicant Forename(s)"></Label>
+            <Entry x:Name="edFornames"></Entry>
+            <Label Text="Applicant Postcode"></Label>
+            <Entry x:Name="edPostcode"></Entry>
+            <Button Text="Search and Import" x:Name="btnImport" Clicked="btnImport_Clicked"></Button>
+            <Button Text="Cancel" x:Name="btnCancel" Clicked="btnCancel_Clicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</Pel:FCAContentPage>

@@ -1,6 +1,7 @@
 using FCA.Forms;
 using FCA.Helpers;
 using FCA.Interfaces;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamTest.Helpers;
@@ -34,10 +35,10 @@ namespace FCA
 
             DB.CreateTables();
 
-            //if (Settings.LoggedIn)
+            if (Settings.LoggedIn)
                 ShowMainPage();
-            //else
-                //ShowLoginPage();
+            else
+                ShowLoginPage();
         }
 
         public void ShowLoginPage()
@@ -71,5 +72,18 @@ namespace FCA
             Settings.WebServiceURL = webServiceURL;
             soapService = DependencyService.Get<ISoapService>();
         }
-	}
+
+        public async Task ShowUpdatePassword()
+        {
+            if (this.HadAuthenticationError)
+            {
+                if (await MainPage.DisplayYesNoAlert("We failed to connect to PICS. This often means that your password has been updated in PICS. Would you like to enter your current password now?"))
+                {
+                    //await MainPage.Navigation.PushModalAsync(new UpdatePassword());
+                }
+                else
+                    this.HadAuthenticationError = false;
+            }
+        }
+    }
 }

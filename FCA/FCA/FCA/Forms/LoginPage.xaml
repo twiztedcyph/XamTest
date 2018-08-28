@@ -9,11 +9,11 @@
             <StackLayout x:Name="pnEntryWrapper" VerticalOptions="CenterAndExpand">
                 <StackLayout x:Name="pnEntry" Padding="24,0" Scale="0" VerticalOptions="Center">
                     <Label Text="Web Service Address (Ending PICSWebService.svc)" FontSize="Medium" XAlign="Center" />
-                    <Entry x:Name="edWebService"></Entry>
+                    <Entry x:Name="edWebService" ></Entry>
                     <Label Text="Username" FontSize="Medium" XAlign="Center" />
                     <Entry x:Name="edUsername"></Entry>
                     <Label Text="Password" FontSize="Medium" XAlign="Center" />
-                    <Entry x:Name="edPassword" IsPassword="True"></Entry>
+                    <Entry x:Name="edPassword" IsPassword="True" Completed="edPassword_Completed"></Entry>
 
                     <Label x:Name="lblID" FontSize="Small" XAlign="Center" />
                 </StackLayout>
