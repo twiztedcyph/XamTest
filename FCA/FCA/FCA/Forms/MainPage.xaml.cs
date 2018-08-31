@@ -1,4 +1,5 @@
-﻿using FCA.Helpers;
+﻿using FCA.Forms.Learner;
+using FCA.Helpers;
 using Pellcomp.Vs.Mobile.FormCaptureApp.lib;
 using System;
 using Xamarin.Forms;
@@ -24,18 +25,18 @@ namespace FCA.Forms
             lblVersion.Margin = new Thickness(10);
             lblVersion.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
             lblVersion.Text = "App Version " + App.Version;
-
             lblPICSVersion.TextColor = PelColours.StaticList.Border;
             lblPICSVersion.HorizontalTextAlignment = TextAlignment.Center;
             lblPICSVersion.Margin = new Thickness(10);
             lblPICSVersion.FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label));
             //lblPICSVersion.Text = "PICS Version " + PICSDesktopVer.BuildNumber + " " + PICSDesktopVer.BuildDateString;
+            btnLearners.Clicked += BtnLearners_Clicked;
         }
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            btnApplicants.IsVisible = Settings.GetBool(oPICSConfig.cfgKey_FCA_Apps_Enabled, false);
+            btnApplicants.IsVisible = false;
             btnLearners.IsVisible = Settings.GetBool(oPICSConfig.cfgKey_FCA_Learners_Enabled, false);
 
             btnDebugOptions.IsVisible = Settings.DebugOptions.Debug;
@@ -47,6 +48,17 @@ namespace FCA.Forms
                     " where you are able to select the type of connection this app should use in the future.");
                 await Navigation.PushAsync(new ToolsPage());
             }
+
+        }
+
+        private void BtnLearners_Clicked(object sender, EventArgs e)
+        {
+            DisplayAlert("Learner clicked", "Learner clicked", "OK");
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
         }
 
         public async void btnForms_Clicked(object sender, EventArgs args)
@@ -62,7 +74,7 @@ namespace FCA.Forms
         {
             if (CanStart("btnApplicantsClicked"))
             {
-                //await Navigation.PushAsync(new ApplicantList());
+                await Navigation.PushAsync(new ApplicantList());
                 EndTask("btnApplicantsClicked");
             }
         }
@@ -116,13 +128,15 @@ namespace FCA.Forms
             //Device.OpenUri(new Uri(HELP_URL));
         }
 
-        public async void btnLearners_Clicked(object sender, EventArgs args)
+        async void btnLearners_Clicked(object sender, EventArgs e)
         {
-            if (CanStart("btnLearnersClicked"))
-            {
-                //await Navigation.PushAsync(new LearnersList());
-                EndTask("btnLearnersClicked");
-            }
+            await DisplayAlert("Learner clicked", "Learner clicked", "OK");
+
+            //if (CanStart("btnLearnersClicked"))
+            //{
+            //    await Navigation.PushAsync(new LearnerImport());
+            //    EndTask("btnLearnersClicked");
+            //}
         }
     }
 }

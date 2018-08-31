@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Pel:FCAContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCA.Forms.ApplicantDetails"
+             xmlns:Pel="clr-namespace:FCA.Forms">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="10" x:Name="slApplicant">
+                <Label FontSize="Large" Text="Name" FontAttributes="Bold" />
+                <Label FontSize="Small" Text="{Binding DisplayName}" />
+                <Label FontSize="Large" Text="Date of Birth" FontAttributes="Bold" />
+                <Label FontSize="Small" Text="{Binding DOB, StringFormat='{0:dd/MM/yyyy}'}" />
+                <StackLayout IsVisible="{Binding HasNINumber}" >
+                    <Label FontSize="Large" Text="NI Number" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding NINumber}" />
+                </StackLayout>
+                <StackLayout IsVisible="{Binding HasPostCode}" >
+                    <Label FontSize="Large" Text="PostCode" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding PostCode}" />
+                </StackLayout>
+                <StackLayout IsVisible="{Binding HasStatus}" >
+                    <Label FontSize="Large" Text="Status" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding Status}" />
+                </StackLayout>
+                <StackLayout IsVisible="{Binding HasSubStatus}" >
+                    <Label FontSize="Large" Text="Sub Status" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding SubStatus}" />
+                </StackLayout>
+                <StackLayout IsVisible="{Binding HasEmployer}" >
+                    <Label FontSize="Large" Text="Employer" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding Employer}" />
+                    <Label FontSize="Large" Text="Employer Name" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding EmployerName}" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Form" Order="Primary" Clicked="ToolbarItem_Clicked" Icon="add.png"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+</Pel:FCAContentPage>

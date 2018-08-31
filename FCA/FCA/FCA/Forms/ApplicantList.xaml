@@ -5,7 +5,7 @@
     xmlns:Pel="clr-namespace:FCA.Forms">
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Margin="10">
-            <SearchBar Placeholder="Search by name..." x:Name="edSearchBarName" HeightRequest="40" SearchButtonPressed="edSearchBarName_SearchButtonPressed" TextChanged="edSearchBarName_TextChanged"></SearchBar>
+            <SearchBar Placeholder="Search by name..." x:Name="edSearchBarName" HeightRequest="40" SearchButtonPressed="EdSearchBarName_SearchButtonPressed" TextChanged="EdSearchBarName_TextChanged"></SearchBar>
             <ListView x:Name="FormView" HasUnevenRows="True" ItemTapped="FormView_ItemTapped" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -13,7 +13,7 @@
                             <StackLayout Orientation="Vertical" Spacing="5" Padding="5">
                                 <StackLayout Padding="5" Spacing="0" HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding DisplayName}" FontSize="Large" />
-                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Spacing="5" Padding="5">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Spacing="5" Padding="5" IsVisible="{Binding HasPostCode} ">
                                         <Label Text="PostCode: " FontSize="Small" HorizontalOptions="End" />
                                         <Label Text="{Binding PostCode}" FontSize="Small" HorizontalOptions="End" />
                                     </StackLayout>

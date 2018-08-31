@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Pel:FCAContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FCA.Forms.Learner.LearnerImport"
+             xmlns:Pel="clr-namespace:FCA.Forms">
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <ActivityIndicator x:Name="aiLoading" IsRunning="false" IsVisible="False" />
+            <Label Text="Learner Surname" />
+            <Entry x:Name="edSurname" />
+            <Label Text="Learner Forename(s)" />
+            <Entry x:Name="edFornames"></Entry>
+            <Label Text="Learner Postcode" />
+            <Entry x:Name="edPostcode" />
+            <Button Text="Search and Import" x:Name="BtnImport" Clicked="BtnImort_Clicked" />
+            <Button Text="Cancel" x:Name="BtnCancel" Clicked="BtnCancel_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</Pel:FCAContentPage>

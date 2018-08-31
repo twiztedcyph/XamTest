@@ -73,5 +73,35 @@ namespace FCA.Models
                 }
             }
         }
+
+        [Ignore]
+        public bool HasNINumber
+        {
+            get { return !string.IsNullOrWhiteSpace(NINumber); }
+        }
+
+        [Ignore]
+        public bool HasPostCode
+        {
+            get { return !string.IsNullOrWhiteSpace(PostCode); }
+        }
+
+        [Ignore]
+        public bool HasStatus
+        {
+            get { return !string.IsNullOrWhiteSpace(Status); }
+        }
+
+        [Ignore]
+        public bool HasSubStatus
+        {
+            get { return !string.IsNullOrWhiteSpace(SubStatus); }
+        }
+
+        [Ignore]
+        public bool HasEmployer
+        {
+            get { return !string.IsNullOrWhiteSpace(Employer); }
+        }
     }
 }

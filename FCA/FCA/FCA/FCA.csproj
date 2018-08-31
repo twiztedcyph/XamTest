@@ -49,10 +49,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Forms\ApplicantDetails.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Forms\ApplicantImport.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Forms\ApplicantList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\LearnerList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\Learner\LearnerDetails.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Forms\Learner\LearnerImport.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Forms\LoginPage.xaml">
@@ -71,5 +83,44 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\ApplicantDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\ApplicantImport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\ApplicantList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\LearnerList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\Learner\LearnerDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\Learner\LearnerImport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\MainPageGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\SyncPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Forms\ToolsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>
