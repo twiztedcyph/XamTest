@@ -37,9 +37,9 @@ namespace FCA.Forms
                 Learners.Add(learner);
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            //show learner import page
+            await Navigation.PushAsync(new LearnerImport());
             GetLearners();
         }
 

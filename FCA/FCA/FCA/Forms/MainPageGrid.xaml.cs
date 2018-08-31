@@ -294,7 +294,7 @@ namespace FCA.Forms
         {
             if (CanStart("BtnLearnersClicked"))
             {
-                //await Navigation.PushAsync(new LearnersList());
+                await Navigation.PushAsync(new LearnerList());
                 EndTask("BtnLearnersClicked");
             }
         }
