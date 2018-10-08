@@ -24,5 +24,11 @@ namespace FCA.Forms.Learner
                 EndTask("btnAddFormClicked");
             }
         }
+
+        private async void BtnDelet_Clicked(object sender, EventArgs e)
+        {
+            await App.DB.DeleteSingleLearner(_learner);
+            await Navigation.PopAsync();
+        }
     }
 }

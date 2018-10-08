@@ -57,6 +57,7 @@ namespace FCA.Forms.Learner
                         }
                         else
                         {
+                            //TODO: proper fix for allowed months.
                             int allowedMonthsOld = 12; //Settings.GetInt(oPICSConfig.cfgKey_FCA_Learners_Filter_OldLearners_Months, 12); //Fix later
                             int leftTooLongAgo = 0;
                             foreach (DBLearner learner in learners.Data)

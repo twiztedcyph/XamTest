@@ -16,7 +16,7 @@ namespace FCA.Forms
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
         public ApplicantList()
 		{
-			InitializeComponent ();
+			InitializeComponent();
 		}
 
         protected override void OnAppearing()

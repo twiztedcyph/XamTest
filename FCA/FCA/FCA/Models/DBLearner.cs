@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Pellcomp.Vs.Mobile.FormCaptureApp.lib;
 using PropertyChanged;
 using SQLite;
@@ -38,5 +39,34 @@ namespace FCA.Models
 
         [Ignore]
         public string DisplaySex => SharedListLoad.SEX[Sex];
+
+        [Ignore]
+        public string DisplayAddress
+        {
+            get
+            {
+                StringBuilder builder = new StringBuilder();
+                if (!string.IsNullOrWhiteSpace(Address1))
+                    builder.Append(Address1 + Environment.NewLine);
+                if (!string.IsNullOrWhiteSpace(Address2))
+                    builder.Append(Address2 + Environment.NewLine);
+                if (!string.IsNullOrWhiteSpace(Address3))
+                    builder.Append(Address3 + Environment.NewLine);
+                if (!string.IsNullOrWhiteSpace(Address4))
+                    builder.Append(Address4 + Environment.NewLine);
+                if (!string.IsNullOrWhiteSpace(Postcode))
+                    builder.Append(Postcode);
+                return builder.ToString();
+            }
+        }
+        
+        [Ignore]
+        public bool HasPhone { get { return !string.IsNullOrWhiteSpace(Phone); } }
+
+        [Ignore]
+        public bool HasMobile { get { return !string.IsNullOrWhiteSpace(MobilePhone); } }
+
+        [Ignore]
+        public bool HasTrainingEnd { get { return TrainingEnd.HasValue; } }
     }
 }

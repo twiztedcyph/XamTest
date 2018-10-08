@@ -2,7 +2,8 @@
 <Pel:FCAContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FCA.Forms.Learner.LearnerDetails"
-             xmlns:Pel="clr-namespace:FCA.Forms">
+             xmlns:Pel="clr-namespace:FCA.Forms"
+             Title="Learner Details">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="10" x:Name="slLearner">
@@ -19,27 +20,30 @@
                 <Label FontSize="Large" Text="NI Number" FontAttributes="Bold" />
                 <Label FontSize="Small" Text="{Binding NINumber}" />
                 <Label FontSize="Large" Text="Address" FontAttributes="Bold" />
-                <Label FontSize="Small" Text="{Binding Address1}" />
-                <Label FontSize="Small" Text="{Binding Address2}" />
-                <Label FontSize="Small" Text="{Binding Address3}" />
-                <Label FontSize="Small" Text="{Binding Address4}" />
-                <Label FontSize="Small" Text="{Binding Postcode}" />
-                <Label FontSize="Large" Text="Phone Number" FontAttributes="Bold" />
-                <Label FontSize="Small" Text="{Binding Phone}" />
-                <Label FontSize="Large" Text="Mobile Phone Number" FontAttributes="Bold" />
-                <Label FontSize="Small" Text="{Binding MobilePhone}" />
+                <Label FontSize="Small" Text="{Binding DisplayAddress}" />
+                <StackLayout IsVisible="{Binding HasPhone}" >
+                    <Label FontSize="Large" Text="Phone Number" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding Phone}" />
+                </StackLayout>
+                <StackLayout IsVisible="{Binding HasMobile}" >
+                    <Label FontSize="Large" Text="Mobile Phone Number" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding MobilePhone}" />
+                </StackLayout>
                 <Label FontSize="Large" Text="Email Address" FontAttributes="Bold" />
                 <Label FontSize="Small" Text="{Binding Email}" />
                 <Label FontSize="Large" Text="Training Start" FontAttributes="Bold" />
                 <Label FontSize="Small" Text="{Binding TrainingStart, StringFormat='{0:dd/MM/yyyy}'}" />
                 <Label FontSize="Large" Text="Training Expected End" FontAttributes="Bold" />
                 <Label FontSize="Small" Text="{Binding TrainingExpEnd, StringFormat='{0:dd/MM/yyyy}'}" />
-                <Label FontSize="Large" Text="Training End" FontAttributes="Bold" />
-                <Label FontSize="Small" Text="{Binding TrainingEnd, StringFormat='{0:dd/MM/yyyy}'}" />
+                <StackLayout IsVisible="{Binding HasTrainingEnd}" >
+                    <Label FontSize="Large" Text="Training End" FontAttributes="Bold" />
+                    <Label FontSize="Small" Text="{Binding TrainingEnd, StringFormat='{0:dd/MM/yyyy}'}" />
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Form" Order="Primary" Clicked="ToolbarItem_Clicked" Icon="add.png"></ToolbarItem>
+        <ToolbarItem Text="Add Form" Order="Primary" Clicked="ToolbarItem_Clicked" Icon="add.png" />
+        <ToolbarItem Text="Delete" Order="Primary" x:Name="BtnDelet" Clicked="BtnDelet_Clicked" />
     </ContentPage.ToolbarItems>
 </Pel:FCAContentPage>

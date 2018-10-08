@@ -35,10 +35,13 @@ namespace FCA
 
             DB.CreateTables();
 
-            if (Settings.LoggedIn)
+            //if (Settings.LoggedIn)
+            //{
+            //    Current.SetupSoap(Settings.WebServiceURL);
                 ShowMainPage();
-            else
-                ShowLoginPage();
+            //}
+            //else
+            //    ShowLoginPage();
         }
 
         public void ShowLoginPage()

@@ -1,5 +1,7 @@
 ﻿using FCA.Forms.Learner;
 using FCA.Models;
+using Microsoft.Rest;
+using Pellcomp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,17 +15,28 @@ namespace FCA.Forms
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LearnerList : FCAContentPage
     {
-        ObservableCollection<DBLearner> Learners = new ObservableCollection<DBLearner>();
+        readonly ObservableCollection<DBLearner> Learners = new ObservableCollection<DBLearner>();
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
         public LearnerList ()
 		{
 			InitializeComponent ();
+		}
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             FormView.ItemsSource = Learners;
             GetLearners();
-		}
+        }
 
         private void GetLearners()
         {
+            var credentials = new BasicAuthenticationCredentials();
+            credentials.UserName = "ian@pellcomp.local";
+            credentials.Password = "1q2w3e4R";
+            var l = new Learners(new PICSWeb());
+            var v = l.SearchAsync("Sha", "Aan", "");
+
             List<DBLearner> dbLearners = null;
 
             string surnameSearchText = EdSearchBarName.Text;
@@ -40,7 +53,6 @@ namespace FCA.Forms
         private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new LearnerImport());
-            GetLearners();
         }
 
         private void EdSearchBarName_SearchButtonPressed(object sender, EventArgs e)
